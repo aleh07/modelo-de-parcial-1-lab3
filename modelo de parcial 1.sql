@@ -25,11 +25,12 @@ from Tecnicos as t
 /*4) Listar la cantidad de tipos de servicio que registre más clientes de tipo particular que
 clientes de tipo empresa.*/
 
-select ts.descripcion from TiposServicio as ts
+select count (ts.descripcion)  as 'cantidad de tipos de servicio'from TiposServicio as ts
 where 
-(select COUNT (s.idcliente) from Servicios as s inner join Clientes as c on c.ID= s.IDCliente where s.IDTipo=ts.ID and c.Tipo='p')
+(select COUNT (distinct s.idcliente) from Servicios as s inner join Clientes as c on c.ID= s.IDCliente where s.IDTipo=ts.ID and c.Tipo='p')
 > 
-(select COUNT (s.idcliente) from Servicios as s inner join Clientes as c on c.ID= s.IDCliente where s.IDTipo=ts.ID and c.Tipo='e')
+(select COUNT (distinct s.idcliente) from Servicios as s inner join Clientes as c on c.ID= s.IDCliente where s.IDTipo=ts.ID and c.Tipo='e')
+
 
 /*5) Agregar las tablas y/o restricciones que considere necesario para permitir registrar
 que un cliente pueda valorar el trabajo realizado en un servicio por parte de un
